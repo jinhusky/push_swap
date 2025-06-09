@@ -6,7 +6,7 @@
 #    By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/09 08:11:25 by kationg           #+#    #+#              #
-#    Updated: 2025/06/09 08:17:47 by kationg          ###   ########.fr        #
+#    Updated: 2025/06/09 13:28:17 by kationg          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = push_swap
 
 CC = cc
 
-FLAGS = -
+FLAGS = -Wall -Wextra -Werror
 
 SRCS = 
 
