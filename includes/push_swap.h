@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:57:11 by kationg           #+#    #+#             */
-/*   Updated: 2025/06/09 11:28:38 by kationg          ###   ########.fr       */
+/*   Updated: 2025/06/11 09:11:25 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define PUSH_SWAP_H
 
 #include "../libft/libft.h"
-
-#endif
 
 typedef struct s_node
 {
@@ -30,4 +28,4 @@ typedef struct s_stack
 	t_node *head;
 }t_stack;
 
-
+#endif
