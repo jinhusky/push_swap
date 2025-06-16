@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/06/09 15:24:45 by kationg          ###   ########.fr       */
+/*   Updated: 2025/06/16 13:20:20 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void error_mssg(char *mssg)
 {
-	ft_putstr_fd(mssg, 2);
+	ft_putstr_fd(mssg, 1);
 	exit(1);
 }
 
@@ -56,7 +56,7 @@ void free_2d_arr(char **d_arr)
 	int i = 0;
 	while (d_arr[i])
 	{
-		free(d_arr[i]);
+		free(d_arr[i++]);
 	}
 	free(d_arr);
 }
@@ -78,51 +78,54 @@ int not_digit(char **d_arr)
 	return (0);
 }
 
-//count the length to allocate for token d_array
+//count the length to allocate for token d_array and also check for invalid arguments(char etc)
 int count_numbers(char **argv)
 {
+	char **ptr = argv;
 	char **subarr;
 	int len = 0;
-	while (*argv)
+	while (*ptr)
 	{
-		subarr = ft_split(*argv, ' ');
+		subarr = ft_split(*ptr, ' ');
 		while (*subarr)
 		{
 			if (not_digit(subarr))
 			{
 				free_2d_arr(subarr);
-				error_mssg("Error\nOnly accepts numbers as argument");
+				error_mssg("\nError\nOnly accepts numbers as argument");
 			}
 			len++;
 			subarr++;
 		}
-		free_2d_arr(subarr);
-		argv++;
+		ptr++;
 	}
+	//ft_printf("%i", len);
 	return(len);
 }
 
 
 //where i first parse the input by splitting the argv if i has multiple digits then adding to res one by one
-char **parse_input(char **argv)
+int *parse_input(char **argv)
 {
 	int i = 0;
 	int j;
+	int len = 0;
 	char **subarr;
-	char **res;
-	res = ft_calloc(sizeof(char *), count_numbers(argv));
+	int *res;
+
+	res = ft_calloc(sizeof(int *), count_numbers(argv));
 	while (argv[i])
 	{
 		j = 0;
 		subarr = ft_split(argv[i], ' ');
 		while (subarr[j])
 		{
-			res[i] = subarr[j];
-			i++;
+			res[len] = ft_atoi(subarr[j]);
+			len++;
 			j++;
 		}
-		i++;
 		free_2d_arr(subarr);
+		i++;
 	}
 	return(res);
 }
@@ -131,12 +134,14 @@ char **parse_input(char **argv)
 int main(int argc, char *argv[])
 {
 	t_stack stack_a;
-	char **tokens;
+	int *tokens;
 
 	ft_memset(&stack_a, 0, sizeof(stack_a));
 	if (argc < 2)
 		error_mssg("please enter at least one number");
-	tokens = parse_input(argv);
-	load_stack_a(tokens, argc, &stack_a);
-
+	tokens = parse_input(++argv);
+	for (int i = 0; i < 6; i++)
+	{
+		ft_printf("%i ", tokens[i]);
+	}
 }
