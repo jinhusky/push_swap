@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/06/16 13:20:20 by kationg          ###   ########.fr       */
+/*   Updated: 2025/06/23 10:49:16 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,14 @@ int not_digit(char **d_arr)
 //count the length to allocate for token d_array and also check for invalid arguments(char etc)
 int count_numbers(char **argv)
 {
-	char **ptr = argv;
 	char **subarr;
 	int len = 0;
-	while (*ptr)
+	int i;
+	while (*argv)
 	{
-		subarr = ft_split(*ptr, ' ');
-		while (*subarr)
+		i = 0;
+		subarr = ft_split(*argv, ' ');
+		while (subarr[i])
 		{
 			if (not_digit(subarr))
 			{
@@ -95,11 +96,11 @@ int count_numbers(char **argv)
 				error_mssg("\nError\nOnly accepts numbers as argument");
 			}
 			len++;
-			subarr++;
+			i++;
 		}
-		ptr++;
+		free_2d_arr(subarr);
+		argv++;
 	}
-	//ft_printf("%i", len);
 	return(len);
 }
 
@@ -131,6 +132,7 @@ int *parse_input(char **argv)
 }
 
 
+
 int main(int argc, char *argv[])
 {
 	t_stack stack_a;
@@ -140,7 +142,7 @@ int main(int argc, char *argv[])
 	if (argc < 2)
 		error_mssg("please enter at least one number");
 	tokens = parse_input(++argv);
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		ft_printf("%i ", tokens[i]);
 	}

@@ -6,11 +6,13 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 21:37:03 by kationg           #+#    #+#             */
-/*   Updated: 2024/11/25 22:29:34 by kationg          ###   ########.fr       */
+/*   Updated: 2025/06/23 10:43:15 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "libft.h"
+#include <limits.h>
 
 int	ft_atoi(const char *str)
 {
@@ -31,6 +33,12 @@ int	ft_atoi(const char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
+		if (number > (INT_MAX - (str[i] - '0')) / 10 ||
+				number < (INT_MIN + (str[i] - '0') * 10))
+		{
+			ft_printf("\nERROR\nInput number exceeds the limits of a 32-bit signed integer");
+			exit(1);
+		}
 		number = number * 10 + (str[i] - '0');
 		i++;
 	}
