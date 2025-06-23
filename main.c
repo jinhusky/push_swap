@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/06/23 15:29:36 by kationg          ###   ########.fr       */
+/*   Updated: 2025/06/23 16:14:31 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,10 +178,7 @@ void load_stack_a(int *tokens, t_stack *stack_a)
 		else 
 		{
 			prev->next = new;
-			if (*tokens + 1)
-				new->prev = stack_a->head;
-			else
-				new->prev = prev;
+			new->prev = prev;
 		}
 		prev = new;
 		tokens++;
@@ -206,20 +203,12 @@ int main(int argc, char *argv[])
 	}*/
 	load_stack_a(tokens, &stack_a);
 	t_node *ptr = stack_a.head;
-	/*
+	
 	while (ptr)
 	{
 		ft_printf("%i ", ptr->value);
 		ptr = ptr->next;
 	}
-	ptr = stack_a.head;
-	*/
-	while (ptr->next != NULL)
-	{
-		ptr = ptr->next;
-	}
-	ft_printf("\n%i ", ptr->value);
 
-	
-	
+
 }
