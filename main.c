@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/06/23 10:49:16 by kationg          ###   ########.fr       */
+/*   Updated: 2025/06/23 15:29:36 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void error_mssg(char *mssg)
 	exit(1);
 }
 
-void load_stack_a(char **argv, int size, t_stack *stack)
+void load_stack_a_F(char **argv, int size, t_stack *stack)
 {
 	size -= 1;
 	int i = 0;
@@ -78,6 +78,9 @@ int not_digit(char **d_arr)
 	return (0);
 }
 
+
+
+
 //count the length to allocate for token d_array and also check for invalid arguments(char etc)
 int count_numbers(char **argv)
 {
@@ -131,7 +134,60 @@ int *parse_input(char **argv)
 	return(res);
 }
 
+void check_duplicates(int *arr)
+{
+	int i = 0;
+	int j;
+	while (arr[i])
+	{
+		j = i + 1;
+		while (arr[j])
+		{
+			if (arr[i] == arr[j])
+			{
+				error_mssg("Error\nDuplicate numbers found");
+				exit(1);
+			}
+			j++;
+		}
+		i++;
+	}
+}
 
+
+t_node *create_node(int *num)
+{
+	t_node *ptr;
+	
+	ptr = malloc(sizeof(t_node));
+	ptr->value = *num;
+	ptr->next = NULL;
+	ptr->prev = NULL;
+	return (ptr);
+}
+
+void load_stack_a(int *tokens, t_stack *stack_a)
+{
+	t_node *prev;
+	t_node *new;
+	while (*tokens)
+	{
+		new = create_node(tokens);
+		if (!stack_a->head)
+			stack_a->head = new;
+		else 
+		{
+			prev->next = new;
+			if (*tokens + 1)
+				new->prev = stack_a->head;
+			else
+				new->prev = prev;
+		}
+		prev = new;
+		tokens++;
+		stack_a->size++;
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -142,8 +198,28 @@ int main(int argc, char *argv[])
 	if (argc < 2)
 		error_mssg("please enter at least one number");
 	tokens = parse_input(++argv);
+	check_duplicates(tokens);
+	/*
 	for (int i = 0; i < 10; i++)
 	{
 		ft_printf("%i ", tokens[i]);
+	}*/
+	load_stack_a(tokens, &stack_a);
+	t_node *ptr = stack_a.head;
+	/*
+	while (ptr)
+	{
+		ft_printf("%i ", ptr->value);
+		ptr = ptr->next;
 	}
+	ptr = stack_a.head;
+	*/
+	while (ptr->next != NULL)
+	{
+		ptr = ptr->next;
+	}
+	ft_printf("\n%i ", ptr->value);
+
+	
+	
 }
