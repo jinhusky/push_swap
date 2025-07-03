@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/03 15:06:54 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/03 16:53:46 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,15 @@ void free_2d_arr(char **d_arr)
 int not_digit(char **d_arr)
 {
 	int i = 0;
-	int j = 0;
+	int j;
 	while(d_arr[i])
 	{
+		j = 0;
 		while (d_arr[i][j])
 		{
-			if (!ft_isdigit(d_arr[i][j]) && d_arr[i][j] != '-')
+			if (d_arr[i][j] == '-' || d_arr[i][j] == '\0')
+				j++;
+			if (!ft_isdigit(d_arr[i][j]))
 				return (1);
 			j++;
 		}
@@ -78,9 +81,6 @@ int not_digit(char **d_arr)
 	}
 	return (0);
 }
-
-
-
 
 //count the length to allocate for token d_array and also check for invalid arguments(char etc)
 int count_numbers(char **argv)
@@ -110,14 +110,15 @@ int count_numbers(char **argv)
 
 
 //where i first parse the input by splitting the argv if i has multiple digits then adding to res one by one
-int *parse_input(char **argv)
+int *parse_input(char **argv, int *num_count)
 {
 	int i = 0;
 	int j;
 	int len = 0;
 	char **subarr;
 	int *res;
-
+	
+	*num_count = count_numbers(argv);
 	res = ft_calloc(sizeof(int *), count_numbers(argv));
 	while (argv[i])
 	{
@@ -135,14 +136,15 @@ int *parse_input(char **argv)
 	return(res);
 }
 
-void check_duplicates(int *arr)
+void check_duplicates(int *arr, int length)
 {
+	//now i know why zero is breaking my code because the while loop checks for arr[i] null terminator which triggers the zero
 	int i = 0;
 	int j;
-	while (arr[i])
+	while (i < length - 1)
 	{
 		j = i + 1;
-		while (arr[j])
+		while (j < length - 1)
 		{
 			if (arr[i] == arr[j])
 			{
@@ -228,12 +230,13 @@ int main(int argc, char *argv[])
 {
 	t_stack stack_a;
 	int *tokens;
+	int num_count = 0;
 	
 	ft_memset(&stack_a, 0, sizeof(stack_a));
 	if (argc < 2)
 		error_mssg("please enter at least one number");
-	tokens = parse_input(++argv);
-	check_duplicates(tokens);
+	tokens = parse_input(++argv, &num_count);
+	check_duplicates(tokens, num_count);
 	/*
 	for (int i = 0; i < 10; i++)
 	{
@@ -243,7 +246,7 @@ int main(int argc, char *argv[])
 	t_node *ptr = stack_a.head;
 	(void )ptr;
 	quick_sort(tokens, 0, stack_a.size - 1);
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 12; i++)
 	{
 		ft_printf("%i ", tokens[i]);
 	}
@@ -254,6 +257,7 @@ int main(int argc, char *argv[])
 		ft_printf("%i ", ptr->value);
 		ptr = ptr->next;
 	}
-	ft_printf("\n%i", stack_a.size);
 	*/
+
+	
 }
