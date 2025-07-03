@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/03 17:13:20 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/03 17:27:21 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,12 +158,12 @@ void check_duplicates(int *arr, int length)
 }
 
 
-t_node *create_node(int *num)
+t_node *create_node(int num)
 {
 	t_node *ptr;
 	
 	ptr = malloc(sizeof(t_node));
-	ptr->value = *num;
+	ptr->value = num;
 	ptr->next = NULL;
 	ptr->prev = NULL;
 	return (ptr);
@@ -176,7 +176,7 @@ void load_stack_a(int *tokens, t_stack *stack_a, int length)
 	int i = 0;
 	while (i < length)
 	{
-		new = create_node(tokens);
+		new = create_node(tokens[i]);
 		if (!stack_a->head)
 			stack_a->head = new;
 		else 
@@ -239,27 +239,28 @@ int main(int argc, char *argv[])
 	tokens = parse_input(++argv, &num_count);
 	ft_printf("\n%i\n", num_count);
 	check_duplicates(tokens, num_count);
-	/*
-	for (int i = 0; i < 10; i++)
+	
+	for (int i = 0; i < 9; i++)
 	{
 		ft_printf("%i ", tokens[i]);
-	}*/
+	}
 	load_stack_a(tokens, &stack_a, num_count);
 	t_node *ptr = stack_a.head;
-	(void )ptr;
-	quick_sort(tokens, 0, stack_a.size - 1);
+	quick_sort(tokens, 0, num_count - 1);
+
+	ft_printf("\n");
 	for (int i = 0; i < 9; i++)
 	{
 		ft_printf("%i ", tokens[i]);
 	}
 	
-	/*
+	
 	while (ptr)
 	{
-		ft_printf("%i ", ptr->value);
+		ft_printf("\n%i ", ptr->value);
 		ptr = ptr->next;
 	}
-	*/
+	
 
 	
 }
