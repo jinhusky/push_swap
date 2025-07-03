@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/03 16:53:46 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/03 17:13:20 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,10 @@ void check_duplicates(int *arr, int length)
 	//now i know why zero is breaking my code because the while loop checks for arr[i] null terminator which triggers the zero
 	int i = 0;
 	int j;
-	while (i < length - 1)
+	while (i < length)
 	{
 		j = i + 1;
-		while (j < length - 1)
+		while (j < length)
 		{
 			if (arr[i] == arr[j])
 			{
@@ -169,11 +169,12 @@ t_node *create_node(int *num)
 	return (ptr);
 }
 
-void load_stack_a(int *tokens, t_stack *stack_a)
+void load_stack_a(int *tokens, t_stack *stack_a, int length)
 {
 	t_node *prev;
 	t_node *new;
-	while (*tokens)
+	int i = 0;
+	while (i < length)
 	{
 		new = create_node(tokens);
 		if (!stack_a->head)
@@ -184,7 +185,7 @@ void load_stack_a(int *tokens, t_stack *stack_a)
 			new->prev = prev;
 		}
 		prev = new;
-		tokens++;
+		i++;
 		stack_a->size++;
 	}
 }
@@ -236,17 +237,18 @@ int main(int argc, char *argv[])
 	if (argc < 2)
 		error_mssg("please enter at least one number");
 	tokens = parse_input(++argv, &num_count);
+	ft_printf("\n%i\n", num_count);
 	check_duplicates(tokens, num_count);
 	/*
 	for (int i = 0; i < 10; i++)
 	{
 		ft_printf("%i ", tokens[i]);
 	}*/
-	load_stack_a(tokens, &stack_a);
+	load_stack_a(tokens, &stack_a, num_count);
 	t_node *ptr = stack_a.head;
 	(void )ptr;
 	quick_sort(tokens, 0, stack_a.size - 1);
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		ft_printf("%i ", tokens[i]);
 	}
