@@ -6,19 +6,20 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/06/23 16:14:31 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/03 15:06:54 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/push_swap.h"
+#include "libft/ft_printf.h"
 
 void error_mssg(char *mssg)
 {
 	ft_putstr_fd(mssg, 1);
 	exit(1);
 }
-
-void load_stack_a_F(char **argv, int size, t_stack *stack)
+/* this is wrong implementation
+void load_stack_a(char **argv, int size, t_stack *stack)
 {
 	size -= 1;
 	int i = 0;
@@ -50,7 +51,7 @@ void load_stack_a_F(char **argv, int size, t_stack *stack)
 		stack->size++;
 	}
 }
-
+*/
 void free_2d_arr(char **d_arr)
 {
 	int i = 0;
@@ -69,7 +70,7 @@ int not_digit(char **d_arr)
 	{
 		while (d_arr[i][j])
 		{
-			if (!ft_isdigit(d_arr[i][j]))
+			if (!ft_isdigit(d_arr[i][j]) && d_arr[i][j] != '-')
 				return (1);
 			j++;
 		}
@@ -186,11 +187,48 @@ void load_stack_a(int *tokens, t_stack *stack_a)
 	}
 }
 
+void swap_val(int *a, int *b)
+{
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+int partition(int *array, int first, int last)
+{
+	int pivot = array[last];
+	int i = first - 1;
+	int j = first;
+	//fixed bug where i end it right before the pivot index
+	while (j < last)
+	{
+		if (array[j] < pivot)
+		{
+			i++;
+			swap_val(&array[i], &array[j]);
+		}
+		//instead of only progressing j in else which can cause an infinite loop, always increment it
+		j++;
+	}
+	// once everything is sorted only then swap the i with pivot as the last step then return the pivot index
+	swap_val(&array[i + 1], &array[last]);
+	return (i + 1);
+}
+void quick_sort(int *array, int low, int high)
+{
+	if (low < high)
+	{
+		int pivot_index = partition(array, low, high);
+		quick_sort(array, low, pivot_index - 1);
+		quick_sort(array, pivot_index + 1, high);
+	}
+}
+
+
 int main(int argc, char *argv[])
 {
 	t_stack stack_a;
 	int *tokens;
-
+	
 	ft_memset(&stack_a, 0, sizeof(stack_a));
 	if (argc < 2)
 		error_mssg("please enter at least one number");
@@ -203,12 +241,19 @@ int main(int argc, char *argv[])
 	}*/
 	load_stack_a(tokens, &stack_a);
 	t_node *ptr = stack_a.head;
+	(void )ptr;
+	quick_sort(tokens, 0, stack_a.size - 1);
+	for (int i = 0; i < 20; i++)
+	{
+		ft_printf("%i ", tokens[i]);
+	}
 	
+	/*
 	while (ptr)
 	{
 		ft_printf("%i ", ptr->value);
 		ptr = ptr->next;
 	}
-
-
+	ft_printf("\n%i", stack_a.size);
+	*/
 }
