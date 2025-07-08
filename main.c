@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/08 10:56:06 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/08 15:05:47 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,24 @@ void ranking(int *array, t_stack *stack, int num_count)
 }
 
 
+void swap(t_stack *stack)
+{
+	t_node *tmp;
+	t_node *ptr;
+	tmp = stack->head;
+
+	stack->head = tmp->next;
+	stack->head->prev = NULL;
+	ptr = stack->head;
+	while (ptr->next)
+		ptr = ptr->next;
+
+	ptr->next = tmp;
+	ptr->next->next = NULL;
+	ptr->next->prev = ptr;
+}
+
+
 int main(int argc, char *argv[])
 {
 	t_stack stack_a;
@@ -271,6 +289,8 @@ int main(int argc, char *argv[])
 	}
 	*/
 	load_stack_a(tokens, &stack_a, num_count);
+
+
 	quick_sort(tokens, 0, num_count - 1);
 	ranking(tokens, &stack_a, num_count);
 
@@ -282,18 +302,31 @@ int main(int argc, char *argv[])
 		ft_printf("%i ", tokens[i]);
 	}
 	ft_printf("\n");
-	t_node *ptr = stack_a.head;
+	
+	/*
 	while (ptr)
 	{
 		ft_printf("%i ", ptr->rank);
 		ptr = ptr->next;
 
 	}
-	/*
+	*/
+	swap(&stack_a);
+
+	t_node *ptr = stack_a.head;
+	
 	while (ptr)
 	{
 		ft_printf("%i ", ptr->value);
 		ptr = ptr->next;
 	}
-	*/
+	ptr = stack_a.head;
+	ft_printf("\n");
+	
+	while (ptr)
+	{
+		ft_printf("%i ", ptr->rank);
+		ptr = ptr->next;
+	}
+
 }
