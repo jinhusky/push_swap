@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/08 15:05:47 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/08 16:56:00 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ void load_stack_a(int *tokens, t_stack *stack_a, int length)
 		i++;
 		stack_a->size++;
 	}
+	stack_a->tail = new;
 }
 
 void swap_val(int *a, int *b)
@@ -219,6 +220,8 @@ int partition(int *array, int first, int last)
 	swap_val(&array[i + 1], &array[last]);
 	return (i + 1);
 }
+
+
 void quick_sort(int *array, int low, int high)
 {
 	if (low < high)
@@ -254,20 +257,43 @@ void ranking(int *array, t_stack *stack, int num_count)
 void swap(t_stack *stack)
 {
 	t_node *tmp;
-	t_node *ptr;
 	tmp = stack->head;
 
 	stack->head = tmp->next;
 	stack->head->prev = NULL;
-	ptr = stack->head;
-	while (ptr->next)
-		ptr = ptr->next;
+	tmp->next = stack->head->next;
+	tmp->prev = stack->head;
+	stack->head->next = tmp;
+}
+/*
+void push(t_stack *src, t_stack *dest)
+{
+	 
+}
+*/
+void rev_rotate(t_stack *stack)
+{
+	t_node *tmp;
+	tmp = stack->tail;
 
-	ptr->next = tmp;
-	ptr->next->next = NULL;
-	ptr->next->prev = ptr;
+	stack->tail = tmp->prev;
+	tmp->next = stack->head;
+	tmp->prev = NULL;
+	stack->head = tmp;
+	stack->tail->next = NULL;
 }
 
+void rotate(t_stack *stack)
+{
+	t_node *tmp;
+	tmp = stack->head;
+
+	stack->head = tmp->next;
+	stack->head->prev = NULL;
+	tmp->prev = stack->tail;
+	stack->tail->next = tmp;
+	tmp->next = NULL; 
+}
 
 int main(int argc, char *argv[])
 {
@@ -293,6 +319,7 @@ int main(int argc, char *argv[])
 
 	quick_sort(tokens, 0, num_count - 1);
 	ranking(tokens, &stack_a, num_count);
+	
 
 
 	
@@ -311,7 +338,7 @@ int main(int argc, char *argv[])
 
 	}
 	*/
-	swap(&stack_a);
+	rev_rotate(&stack_a);
 
 	t_node *ptr = stack_a.head;
 	
