@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/03 17:27:21 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/08 10:56:06 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,9 @@ void load_stack_a(int *tokens, t_stack *stack_a, int length)
 	{
 		new = create_node(tokens[i]);
 		if (!stack_a->head)
+		{
 			stack_a->head = new;
+		}
 		else 
 		{
 			prev->next = new;
@@ -196,6 +198,7 @@ void swap_val(int *a, int *b)
 	*a = *b;
 	*b = temp;
 }
+
 int partition(int *array, int first, int last)
 {
 	int pivot = array[last];
@@ -227,6 +230,27 @@ void quick_sort(int *array, int low, int high)
 }
 
 
+void ranking(int *array, t_stack *stack, int num_count)
+{
+	int rank = 0;
+	int i;
+	t_node *ptr = stack->head;
+	while (ptr)
+	{
+		rank = 0;
+		i = 0;
+		while (i < num_count)
+		{
+			if (ptr->value == array[i])
+				ptr->rank = rank;
+			i++;
+			rank++;
+		}
+		ptr = ptr->next;
+	}
+}
+
+
 int main(int argc, char *argv[])
 {
 	t_stack stack_a;
@@ -240,27 +264,36 @@ int main(int argc, char *argv[])
 	ft_printf("\n%i\n", num_count);
 	check_duplicates(tokens, num_count);
 	
+	/*
 	for (int i = 0; i < 9; i++)
 	{
 		ft_printf("%i ", tokens[i]);
 	}
+	*/
 	load_stack_a(tokens, &stack_a, num_count);
-	t_node *ptr = stack_a.head;
 	quick_sort(tokens, 0, num_count - 1);
+	ranking(tokens, &stack_a, num_count);
 
+
+	
 	ft_printf("\n");
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		ft_printf("%i ", tokens[i]);
 	}
-	
-	
+	ft_printf("\n");
+	t_node *ptr = stack_a.head;
 	while (ptr)
 	{
-		ft_printf("\n%i ", ptr->value);
+		ft_printf("%i ", ptr->rank);
+		ptr = ptr->next;
+
+	}
+	/*
+	while (ptr)
+	{
+		ft_printf("%i ", ptr->value);
 		ptr = ptr->next;
 	}
-	
-
-	
+	*/
 }
