@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/08 16:56:00 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/08 17:28:43 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,12 +265,8 @@ void swap(t_stack *stack)
 	tmp->prev = stack->head;
 	stack->head->next = tmp;
 }
-/*
-void push(t_stack *src, t_stack *dest)
-{
-	 
-}
-*/
+
+
 void rev_rotate(t_stack *stack)
 {
 	t_node *tmp;
@@ -293,6 +289,19 @@ void rotate(t_stack *stack)
 	tmp->prev = stack->tail;
 	stack->tail->next = tmp;
 	tmp->next = NULL; 
+}
+
+void push(t_stack *src, t_stack *dest)
+{
+	t_node *tmp;
+	tmp = src->head;
+
+	src->head = tmp->next;
+	src->head->prev = NULL;
+	tmp->next = dest->head;
+	tmp->prev = NULL;
+	dest->head = tmp;
+	
 }
 
 int main(int argc, char *argv[])
