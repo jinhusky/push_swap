@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:57:11 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/08 15:37:22 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/14 10:34:24 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct s_node
 	int value;
 	int rank;
 	struct s_node *next;
-	struct s_node *prev;
 } t_node;
 
 typedef struct s_stack

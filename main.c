@@ -6,12 +6,13 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/08 17:28:43 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/14 14:01:44 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/push_swap.h"
 #include "libft/ft_printf.h"
+#include "libft/libft.h"
 
 void error_mssg(char *mssg)
 {
@@ -165,28 +166,24 @@ t_node *create_node(int num)
 	ptr = malloc(sizeof(t_node));
 	ptr->value = num;
 	ptr->next = NULL;
-	ptr->prev = NULL;
 	return (ptr);
 }
 
 void load_stack_a(int *tokens, t_stack *stack_a, int length)
 {
-	t_node *prev;
 	t_node *new;
+	t_node *ptr;
 	int i = 0;
+
+	ptr = stack_a->head;
 	while (i < length)
 	{
 		new = create_node(tokens[i]);
 		if (!stack_a->head)
-		{
 			stack_a->head = new;
-		}
 		else 
-		{
-			prev->next = new;
-			new->prev = prev;
-		}
-		prev = new;
+			ptr->next = new;
+		ptr = new;
 		i++;
 		stack_a->size++;
 	}
@@ -260,9 +257,7 @@ void swap(t_stack *stack)
 	tmp = stack->head;
 
 	stack->head = tmp->next;
-	stack->head->prev = NULL;
 	tmp->next = stack->head->next;
-	tmp->prev = stack->head;
 	stack->head->next = tmp;
 }
 
@@ -270,13 +265,16 @@ void swap(t_stack *stack)
 void rev_rotate(t_stack *stack)
 {
 	t_node *tmp;
-	tmp = stack->tail;
+	t_node *ptr;
 
-	stack->tail = tmp->prev;
+	tmp = stack->tail;
+	ptr = stack->head;
+	while (ptr->next)
+		ptr = ptr->next;
+	ptr->next = NULL;
+	stack->tail = ptr;
 	tmp->next = stack->head;
-	tmp->prev = NULL;
 	stack->head = tmp;
-	stack->tail->next = NULL;
 }
 
 void rotate(t_stack *stack)
@@ -284,37 +282,78 @@ void rotate(t_stack *stack)
 	t_node *tmp;
 	tmp = stack->head;
 
+	if (!stack->head || !tmp->next)
+		return;
 	stack->head = tmp->next;
-	stack->head->prev = NULL;
-	tmp->prev = stack->tail;
+	tmp->next = NULL;
 	stack->tail->next = tmp;
-	tmp->next = NULL; 
+	stack->tail = tmp;
 }
 
 void push(t_stack *src, t_stack *dest)
 {
-	t_node *tmp;
-	tmp = src->head;
+    if (!src->head)
+        return;
 
-	src->head = tmp->next;
-	src->head->prev = NULL;
-	tmp->next = dest->head;
-	tmp->prev = NULL;
-	dest->head = tmp;
-	
+    t_node *tmp = src->head;
+    src->head = tmp->next;
+    if (src->tail == tmp)
+        src->tail = NULL;
+
+    tmp->next = dest->head;
+    dest->head = tmp;
+    if (!dest->tail)
+        dest->tail = tmp;
 }
+void push_swap(t_stack *stack_a, t_stack *stack_b, int count)
+{
+	int i = 0;
+	int j;
+	int bits = count - 1;
+	while (bits >> i)
+	{
+		j = 0;
+		while (j < count)
+		{
+			
+			if (((stack_a->head->rank >> i) & 1) == 0)
+			{
+				push(stack_a, stack_b);
+				ft_printf("pb\n");
+			}
+			
+			else 
+			{
+				rotate(stack_a);	
+				ft_printf("ra\n");
+			}
+			
+			j++;
+		}
+		
+		while (stack_b->head)
+		{
+			push(stack_b, stack_a);
+			ft_printf("pa\n");
+		}
+		
+		i++;
+	}
+}
+
 
 int main(int argc, char *argv[])
 {
 	t_stack stack_a;
+	t_stack stack_b;
 	int *tokens;
 	int num_count = 0;
 	
+	ft_memset(&stack_b, 0, sizeof(stack_b));
 	ft_memset(&stack_a, 0, sizeof(stack_a));
 	if (argc < 2)
 		error_mssg("please enter at least one number");
 	tokens = parse_input(++argv, &num_count);
-	ft_printf("\n%i\n", num_count);
 	check_duplicates(tokens, num_count);
 	
 	/*
@@ -325,18 +364,10 @@ int main(int argc, char *argv[])
 	*/
 	load_stack_a(tokens, &stack_a, num_count);
 
-
 	quick_sort(tokens, 0, num_count - 1);
 	ranking(tokens, &stack_a, num_count);
 	
-
-
 	
-	ft_printf("\n");
-	for (int i = 0; i < 5; i++)
-	{
-		ft_printf("%i ", tokens[i]);
-	}
 	ft_printf("\n");
 	
 	/*
@@ -347,7 +378,6 @@ int main(int argc, char *argv[])
 
 	}
 	*/
-	rev_rotate(&stack_a);
 
 	t_node *ptr = stack_a.head;
 	
@@ -364,5 +394,5 @@ int main(int argc, char *argv[])
 		ft_printf("%i ", ptr->rank);
 		ptr = ptr->next;
 	}
-
+	push_swap(&stack_a, &stack_b, num_count);
 }
