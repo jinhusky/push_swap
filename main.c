@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/14 14:01:44 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/17 00:22:40 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void error_mssg(char *mssg)
 {
-	ft_putstr_fd(mssg, 1);
+	ft_putstr_fd(mssg, 2);
 	exit(1);
 }
 /* this is wrong implementation
@@ -98,7 +98,7 @@ int count_numbers(char **argv)
 			if (not_digit(subarr))
 			{
 				free_2d_arr(subarr);
-				error_mssg("\nError\nOnly accepts numbers as argument");
+				error_mssg("Error\n");
 			}
 			len++;
 			i++;
@@ -149,7 +149,7 @@ void check_duplicates(int *arr, int length)
 		{
 			if (arr[i] == arr[j])
 			{
-				error_mssg("Error\nDuplicate numbers found");
+				error_mssg("Error\n");
 				exit(1);
 			}
 			j++;
@@ -351,48 +351,13 @@ int main(int argc, char *argv[])
 	
 	ft_memset(&stack_b, 0, sizeof(stack_b));
 	ft_memset(&stack_a, 0, sizeof(stack_a));
-	if (argc < 2)
-		error_mssg("please enter at least one number");
+	if (argc < 2 || !argv[1][0])
+		error_mssg("Error\n");
 	tokens = parse_input(++argv, &num_count);
 	check_duplicates(tokens, num_count);
-	
-	/*
-	for (int i = 0; i < 9; i++)
-	{
-		ft_printf("%i ", tokens[i]);
-	}
-	*/
 	load_stack_a(tokens, &stack_a, num_count);
-
 	quick_sort(tokens, 0, num_count - 1);
 	ranking(tokens, &stack_a, num_count);
-	
-	
-	ft_printf("\n");
-	
-	/*
-	while (ptr)
-	{
-		ft_printf("%i ", ptr->rank);
-		ptr = ptr->next;
-
-	}
-	*/
-
-	t_node *ptr = stack_a.head;
-	
-	while (ptr)
-	{
-		ft_printf("%i ", ptr->value);
-		ptr = ptr->next;
-	}
-	ptr = stack_a.head;
-	ft_printf("\n");
-	
-	while (ptr)
-	{
-		ft_printf("%i ", ptr->rank);
-		ptr = ptr->next;
-	}
 	push_swap(&stack_a, &stack_b, num_count);
+	
 }
