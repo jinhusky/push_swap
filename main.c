@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/20 15:58:33 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/20 16:04:18 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,7 +349,10 @@ void sort_3(t_stack *a)
 	if (first == 0 && sec == 1 && third == 2)
 		return;
 	else if (third == 2)
+	{
+		swap(a);
 		ft_printf("sa\n");
+	}
 	else if (first == 2)
 	{
 		if (sec == 0)
@@ -406,6 +409,7 @@ void sort_4_5(t_stack *a, t_stack *b)
 	i = 0;
 	while (i < 2)
 	{
+		push(b, a);
 		ft_printf("pa\n");
 		i++;
 	}
