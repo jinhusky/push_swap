@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/20 16:52:44 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/20 17:05:28 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,13 +384,13 @@ void sort_4_5(t_stack *a, t_stack *b, int count)
 			push(a, b);
 			ft_printf("pb\n");
 			target++;
+			i++;
 		}
 		else 
 		{
 			rotate(a);
 			ft_printf("ra\n");
 		}
-		i++;
 	}
 	sort_3(a, count);
 	i = 0;
