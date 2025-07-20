@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/20 12:49:52 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/20 15:50:44 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ void push(t_stack *src, t_stack *dest)
     if (!dest->tail)
         dest->tail = tmp;
 }
-void push_swap(t_stack *stack_a, t_stack *stack_b, int count)
+void push_swap(t_stack *a, t_stack *b, int count)
 {
 	int i = 0;
 	int j;
@@ -316,31 +316,106 @@ void push_swap(t_stack *stack_a, t_stack *stack_b, int count)
 		while (j < count)
 		{
 			
-			if (((stack_a->head->rank >> i) & 1) == 0)
+			if (((a->head->rank >> i) & 1) == 0)
 			{
-				push(stack_a, stack_b);
+				push(a, b);
 				ft_printf("pb\n");
 			}
 			
 			else 
 			{
-				rotate(stack_a);	
+				rotate(a);	
 				ft_printf("ra\n");
 			}
 			
 			j++;
 		}
 		
-		while (stack_b->head)
+		while (b->head)
 		{
-			push(stack_b, stack_a);
+			push(b, a);
 			ft_printf("pa\n");
 		}
 		
 		i++;
 	}
 }
+void sort_3(t_stack *a)
+{
+	int first = a->head->rank;
+	int sec = a->head->next->rank;
+	int third = a->head->next->rank;
 
+	if (first == 0 && sec == 1 && third == 2)
+		return;
+	else if (third == 2)
+		ft_printf("sa\n");
+	else if (first == 2)
+	{
+		if (sec == 0)
+			ft_printf("ra\n");
+		else 
+		{
+			ft_printf("sa\n");
+			ft_printf("ra\n");
+		}
+	}
+	else 
+	{
+		if (first == 0)
+		{
+			ft_printf("sa\n");
+			ft_printf("ra\n");
+		}
+		else {
+			ft_printf("rra\n");
+		}
+	}
+
+}
+
+void sort_4_5(t_stack *a, t_stack *b)
+{
+	int i = 0;
+	int rank = a->head->rank;
+	int target = 0;
+	while (i < 2)
+	{
+		if (rank == target)
+		{
+			push(a, b);
+			ft_printf("pb\n");
+			target++;
+		}
+		else 
+		{
+			rotate(a);
+			ft_printf("ra\n");
+		}
+		i++;
+	}
+	sort_3(a);
+	i = 0;
+	while (i < 2)
+	{
+		ft_printf("pa\n");
+		i++;
+	}
+
+}
+
+void small_sort(t_stack *a, t_stack *b, int count)
+{
+	if (count == 2)
+	{
+		if (a->head->rank > a->head->next->rank)
+			ft_printf("sa\n");
+	}
+	else if (count == 3)
+		sort_3(a);
+	else 
+		sort_4_5(a, b);
+}
 
 int main(int argc, char *argv[])
 {
@@ -358,6 +433,9 @@ int main(int argc, char *argv[])
 	load_stack_a(tokens, &stack_a, num_count);
 	quick_sort(tokens, 0, num_count - 1);
 	ranking(tokens, &stack_a, num_count);
-	push_swap(&stack_a, &stack_b, num_count);
+	if (num_count <= 5)
+		small_sort(&stack_a, &stack_b, num_count);
+	else
+		push_swap(&stack_a, &stack_b, num_count);
 	
 }

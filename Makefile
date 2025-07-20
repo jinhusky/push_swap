@@ -6,7 +6,7 @@
 #    By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/10 09:39:18 by kationg           #+#    #+#              #
-#    Updated: 2025/06/11 09:14:59 by kationg          ###   ########.fr        #
+#    Updated: 2025/07/20 13:14:25 by kationg          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ clean:
 	make -C libft clean
 	rm -f $(OBJ_SRCS)
 
-fclean:
+fclean: clean
 	make -C libft fclean
 	rm -f $(NAME)
 
