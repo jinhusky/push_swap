@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/17 00:22:40 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/20 12:49:52 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int not_digit(char **d_arr)
 		j = 0;
 		while (d_arr[i][j])
 		{
-			if (d_arr[i][j] == '-' || d_arr[i][j] == '\0')
+			if (d_arr[i][0] == '-' || d_arr[i][j] == '\0')
 				j++;
 			if (!ft_isdigit(d_arr[i][j]))
 				return (1);
