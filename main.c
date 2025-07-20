@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/20 17:05:28 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/20 18:13:40 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,7 @@ void rev_rotate(t_stack *stack)
 
 	tmp = stack->tail;
 	ptr = stack->head;
-	while (ptr->next)
+	while (ptr->next != stack->tail)
 		ptr = ptr->next;
 	ptr->next = NULL;
 	stack->tail = ptr;
@@ -372,6 +372,28 @@ void sort_3(t_stack *a, int count)
 	}
 
 }
+void moves(t_stack *a, int target)
+{
+	t_node *ptr = a->head;
+	int count = 0;
+	while (ptr)
+	{
+		if (ptr->rank == target)
+			break;
+		ptr = ptr->next;
+		count++;
+	}
+	if (count >= 3)
+	{
+		rev_rotate(a);
+		ft_printf("rra\n");
+	}
+	else {
+		rotate(a);
+		ft_printf("ra\n");
+	}
+
+}
 
 void sort_4_5(t_stack *a, t_stack *b, int count)
 {
@@ -387,10 +409,7 @@ void sort_4_5(t_stack *a, t_stack *b, int count)
 			i++;
 		}
 		else 
-		{
-			rotate(a);
-			ft_printf("ra\n");
-		}
+			moves(a, target);
 	}
 	sort_3(a, count);
 	i = 0;
