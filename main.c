@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/20 16:31:23 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/20 16:52:44 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,11 +340,11 @@ void push_swap(t_stack *a, t_stack *b, int count)
 		i++;
 	}
 }
-void sort_3(t_stack *a)
-{
-	int first = a->head->rank;
-	int sec = a->head->next->rank;
-	int third = a->head->next->next->rank;
+void sort_3(t_stack *a, int count)
+{ 
+	int first = a->head->rank - (count - 3);
+	int sec = a->head->next->rank - (count - 3);
+	int third = a->head->next->next->rank - (count - 3);
 
 	if (first == 0 && sec == 1 && third == 2)
 		return;
@@ -392,7 +392,7 @@ void sort_4_5(t_stack *a, t_stack *b, int count)
 		}
 		i++;
 	}
-	sort_3(a);
+	sort_3(a, count);
 	i = 0;
 	while (i < count - 3)
 	{
@@ -410,7 +410,7 @@ void small_sort(t_stack *a, t_stack *b, int count)
 			ft_printf("sa\n");
 	}
 	else if (count == 3)
-		sort_3(a);
+		sort_3(a, count);
 	else 
 		sort_4_5(a, b, count);
 }
