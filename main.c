@@ -70,11 +70,11 @@ int not_digit(char **d_arr)
 	while(d_arr[i])
 	{
 		j = 0;
-    if (d_arr[i][j] == '-')
+    if (d_arr[i][j] == '-' && ft_isdigit(d_arr[i][j + 1]))
       j++;
 		while (d_arr[i][j])
 		{
-			if (!ft_isdigit(d_arr[i][j]))
+			if (!ft_isdigit(d_arr[i][j]) || d_arr[i][j] == '\0')
 				return (1);
 			j++;
 		}
@@ -89,6 +89,12 @@ int count_numbers(char **argv)
 	char **subarr;
 	int len = 0;
 	int i;
+
+  if (**argv == '\0')
+  {
+    error_mssg("Error\n");
+    exit(1);
+  }
 	while (*argv)
 	{
 		i = 0;
@@ -436,6 +442,7 @@ void small_sort(t_stack *a, t_stack *b, int count)
 
 int main(int argc, char *argv[])
 {
+  (void) argc;
 	t_stack stack_a;
 	t_stack stack_b;
 	int *tokens;
@@ -443,8 +450,6 @@ int main(int argc, char *argv[])
 	
 	ft_memset(&stack_b, 0, sizeof(stack_b));
 	ft_memset(&stack_a, 0, sizeof(stack_a));
-	if (argc < 2 || !argv[1][0])
-		error_mssg("Error\n");
 	tokens = parse_input(++argv, &num_count);
 	check_duplicates(tokens, num_count);
 	load_stack_a(tokens, &stack_a, num_count);
