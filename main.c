@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/21 14:33:56 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:35:42 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -457,7 +457,7 @@ int main(int argc, char *argv[])
 	int num_count = 0;
 	
 	if (argc < 2 || !(*argv[1]))
-		error_mssg("Error\n");
+		exit(1);
 	ft_memset(&stack_b, 0, sizeof(stack_b));
 	ft_memset(&stack_a, 0, sizeof(stack_a));
 	tokens = parse_input(++argv, &num_count);
