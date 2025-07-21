@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/21 14:14:04 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:33:56 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -450,12 +450,14 @@ void small_sort(t_stack *a, t_stack *b, int count)
 
 int main(int argc, char *argv[])
 {
-  (void) argc;
+	(void) argc;
 	t_stack stack_a;
 	t_stack stack_b;
 	int *tokens;
 	int num_count = 0;
 	
+	if (argc < 2 || !(*argv[1]))
+		error_mssg("Error\n");
 	ft_memset(&stack_b, 0, sizeof(stack_b));
 	ft_memset(&stack_a, 0, sizeof(stack_a));
 	tokens = parse_input(++argv, &num_count);
