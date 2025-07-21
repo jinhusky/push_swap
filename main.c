@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/21 13:44:59 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:11:16 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,6 +465,12 @@ int main(int argc, char *argv[])
 	load_stack_a(tokens, &stack_a, num_count);
 	quick_sort(tokens, 0, num_count - 1);
 	ranking(tokens, &stack_a, num_count);
+	t_node *ptr = stack_a.head;
+	while (ptr)
+	{
+		ft_printf("%i\n", ptr->rank);
+		ptr = ptr->next;
+	}
 	if (num_count <= 5)
 		small_sort(&stack_a, &stack_b, num_count);
 	else
