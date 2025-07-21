@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/20 18:13:40 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:32:46 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int not_digit(char **d_arr)
 	while(d_arr[i])
 	{
 		j = 0;
-    if (d_arr[i][j] == '-' && ft_isdigit(d_arr[i][j + 1]))
-      j++;
+		if (d_arr[i][j] == '-' && ft_isdigit(d_arr[i][j + 1]))
+			j++;
 		while (d_arr[i][j])
 		{
 			if (!ft_isdigit(d_arr[i][j]) || d_arr[i][j] == '\0')
@@ -90,11 +90,8 @@ int count_numbers(char **argv)
 	int len = 0;
 	int i;
 
-  if (**argv == '\0')
-  {
-    error_mssg("Error\n");
-    exit(1);
-  }
+	if (**argv == '\0')
+		error_mssg("Error\n");
 	while (*argv)
 	{
 		i = 0;
@@ -154,10 +151,7 @@ void check_duplicates(int *arr, int length)
 		while (j < length)
 		{
 			if (arr[i] == arr[j])
-			{
 				error_mssg("Error\n");
-				exit(1);
-			}
 			j++;
 		}
 		i++;
@@ -311,11 +305,27 @@ void push(t_stack *src, t_stack *dest)
     if (!dest->tail)
         dest->tail = tmp;
 }
+
+void check_sorted(t_stack *a)
+{
+	t_node *ptr = a->head;
+	while (ptr)
+	{
+		if (ptr->rank < ptr->next->rank)
+			ptr = ptr->next;
+		else 
+			return ;
+	}
+	exit(1);
+}
+
 void push_swap(t_stack *a, t_stack *b, int count)
 {
 	int i = 0;
 	int j;
 	int bits = count - 1;
+
+	check_sorted(a);
 	while (bits >> i)
 	{
 		j = 0;
