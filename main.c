@@ -70,10 +70,10 @@ int not_digit(char **d_arr)
 	while(d_arr[i])
 	{
 		j = 0;
+    if (d_arr[i][j] == '-')
+      j++;
 		while (d_arr[i][j])
 		{
-			if (d_arr[i][0] == '-' || d_arr[i][j] == '\0')
-				j++;
 			if (!ft_isdigit(d_arr[i][j]))
 				return (1);
 			j++;
