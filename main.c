@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/21 13:32:46 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:44:59 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,17 +306,16 @@ void push(t_stack *src, t_stack *dest)
         dest->tail = tmp;
 }
 
-void check_sorted(t_stack *a)
+int is_sorted(t_stack *a)
 {
 	t_node *ptr = a->head;
-	while (ptr)
+	while (ptr && ptr->next)
 	{
-		if (ptr->rank < ptr->next->rank)
-			ptr = ptr->next;
-		else 
-			return ;
+		if (ptr->rank > ptr->next->rank)
+			return 0;
+		ptr = ptr->next;
 	}
-	exit(1);
+	return (1);
 }
 
 void push_swap(t_stack *a, t_stack *b, int count)
@@ -325,7 +324,8 @@ void push_swap(t_stack *a, t_stack *b, int count)
 	int j;
 	int bits = count - 1;
 
-	check_sorted(a);
+	if (is_sorted(a))
+		exit(0);
 	while (bits >> i)
 	{
 		j = 0;
