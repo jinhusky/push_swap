@@ -6,53 +6,18 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/21 14:38:09 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/23 16:37:01 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/push_swap.h"
-#include "libft/ft_printf.h"
-#include "libft/libft.h"
 
 void error_mssg(char *mssg)
 {
 	ft_putstr_fd(mssg, 2);
 	exit(1);
 }
-/* this is wrong implementation
-void load_stack_a(char **argv, int size, t_stack *stack)
-{
-	size -= 1;
-	int i = 0;
-	int j = 0;
-	t_node *ptr_curr;
-	t_node *ptr_prev;
-	ptr_curr = stack->head;
-	while (i < size)
-	{
-		while (argv[i][j])
-		{
-			if (!ft_isdigit(argv[i][j]))
-				error_mssg("Program only accepts numbers as input");
-		}
-		ptr_curr = malloc(sizeof(t_node));
-		ptr_curr->value = ft_atoi(argv[i]);
-		ptr_prev = ptr_curr;
-		if (i + 1 == size)
-		{
-			ptr_curr->next = stack->head;
-			ptr_curr->prev = ptr_prev;
-		}
-		else 
-		{
-			ptr_curr = ptr_curr->next;
-			if (ptr_prev)
-				ptr_curr->prev = ptr_prev;
-		}
-		stack->size++;
-	}
-}
-*/
+
 void free_2d_arr(char **d_arr)
 {
 	int i = 0;
