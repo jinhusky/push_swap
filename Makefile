@@ -6,13 +6,13 @@
 #    By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/10 09:39:18 by kationg           #+#    #+#              #
-#    Updated: 2025/07/20 13:14:25 by kationg          ###   ########.fr        #
+#    Updated: 2025/07/24 02:13:30 by kationg          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRCS = main.c 
+SRCS = srcs/main.c srcs/operations.c srcs/parsing.c srcs/ranking.c srcs/small_sorts.c srcs/utils.c
 
 OBJ_SRCS = $(SRCS:.c=.o)
 
