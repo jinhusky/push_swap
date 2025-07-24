@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/24 09:35:11 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/24 13:38:26 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,16 @@ static void	radix_pushb(t_stack *a, t_stack *b)
 	}
 }
 
-void	radix_sort(t_stack *a, t_stack *b, int count)
+void	radix_sort(t_stack *a, t_stack *b, int bits)
 {
 	int	i;
 	int	j;
-	int	bits;
 
 	i = 0;
-	bits = count - 1;
 	while (bits >> i)
 	{
 		j = 0;
-		while (j < count)
+		while (j < bits + 1)
 		{
 			if (((a->head->rank >> i) & 1) == 0)
 			{
@@ -46,6 +44,7 @@ void	radix_sort(t_stack *a, t_stack *b, int count)
 			}
 			j++;
 		}
+		radix_pushb(a, b);
 		i++;
 	}
 }
@@ -63,6 +62,22 @@ void	small_sort(t_stack *a, t_stack *b, int count)
 		sort_4_5(a, b, count);
 }
 
+void	free_memory(int *tokens, t_stack *a)
+{
+	t_node	*ptr;
+	t_node	*next;
+
+	ptr = a->head;
+	free(tokens);
+	tokens = NULL;
+	while (ptr)
+	{
+		next = ptr->next;
+		free(ptr);
+		ptr = next;
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	t_stack	stack_a;
@@ -71,7 +86,6 @@ int	main(int argc, char *argv[])
 	int		num_count;
 
 	num_count = 0;
-	(void) argc;
 	if (argc < 2)
 		exit(1);
 	ft_memset(&stack_b, 0, sizeof(stack_b));
@@ -86,5 +100,6 @@ int	main(int argc, char *argv[])
 	if (num_count <= 5)
 		small_sort(&stack_a, &stack_b, num_count);
 	else
-		radix_sort(&stack_a, &stack_b, num_count);
+		radix_sort(&stack_a, &stack_b, num_count - 1);
+	free_memory(tokens, &stack_a);
 }
