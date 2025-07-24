@@ -6,11 +6,20 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/24 02:29:22 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/24 09:35:11 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+static void	radix_pushb(t_stack *a, t_stack *b)
+{
+	while (b->head)
+	{
+		push(b, a);
+		ft_printf("pa\n");
+	}
+}
 
 void	radix_sort(t_stack *a, t_stack *b, int count)
 {
@@ -36,11 +45,6 @@ void	radix_sort(t_stack *a, t_stack *b, int count)
 				ft_printf("ra\n");
 			}
 			j++;
-		}
-		while (b->head)
-		{
-			push(b, a);
-			ft_printf("pa\n");
 		}
 		i++;
 	}

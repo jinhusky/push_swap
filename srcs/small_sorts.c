@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 01:42:10 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/24 02:43:42 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/24 09:42:44 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,8 @@ int	is_sorted(t_stack *a)
 	return (1);
 }
 
-void	sort_3(t_stack *a, int count)
+static void	sort_3_helper(int first, int sec, int third)
 {
-	int	first;
-	int	sec;
-	int	third;
-
-	first = a->head->rank - (count - 3);
-	sec = a->head->next->rank - (count - 3);
-	third = a->head->next->next->rank - (count - 3);
 	if (first == 0 && sec == 1 && third == 2)
 		return ;
 	else if (third == 2)
@@ -85,6 +78,18 @@ void	sort_3(t_stack *a, int count)
 		else
 			ft_printf("rra\n");
 	}
+}
+
+void	sort_3(t_stack *a, int count)
+{
+	int	first;
+	int	sec;
+	int	third;
+
+	first = a->head->rank - (count - 3);
+	sec = a->head->next->rank - (count - 3);
+	third = a->head->next->next->rank - (count - 3);
+	sort_3_helper(first, sec, third);
 }
 
 void	sort_4_5(t_stack *a, t_stack *b, int count)
