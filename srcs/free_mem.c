@@ -29,5 +29,5 @@ void	ft_exit(t_stack *a, int *tokens)
 		ptr = ptr->next;
 		free(prev);
 	}
-	exit(1);
+	exit(0);
 }
