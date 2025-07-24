@@ -6,16 +6,16 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 01:37:14 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/24 13:27:51 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/24 13:58:01 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	error_mssg(char *mssg)
+void	error_mssg(char *mssg, t_stack *a, int *tokens)
 {
 	ft_putstr_fd(mssg, 2);
-	exit(1);
+	ft_exit(a, tokens);
 }
 
 void	free_2d_arr(char **d_arr)

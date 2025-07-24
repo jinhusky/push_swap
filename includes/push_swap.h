@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:57:11 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/24 02:24:39 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/24 13:51:59 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ void	sort_3(t_stack *a, int count);
 void	sort_4_5(t_stack *a, t_stack *b, int count);
 
 //utils
-void	error_mssg(char *mssg);
+void	error_mssg(char *mssg, t_stack *a, int *tokens);
 void	free_2d_arr(char **d_arr);
 t_node	*create_node(int num);
 void	load_stack_a(int *tokens, t_stack *stack_a, int length);
+void	ft_exit(t_stack *a, int *tokens);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 01:27:00 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/24 02:35:03 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/24 13:54:00 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	count_numbers(char **argv)
 
 	len = 0;
 	if (**argv == '\0')
-		error_mssg("Error\n");
+		error_mssg("Error\n", NULL, NULL);
 	while (*argv)
 	{
 		i = 0;
@@ -54,7 +54,7 @@ static int	count_numbers(char **argv)
 			if (not_digit(subarr))
 			{
 				free_2d_arr(subarr);
-				error_mssg("Error\n");
+				error_mssg("Error\n", NULL, NULL);
 			}
 			len++;
 			i++;
@@ -79,7 +79,7 @@ void	check_duplicates(int *arr, int length)
 		while (j < length)
 		{
 			if (arr[i] == arr[j])
-				error_mssg("Error\n");
+				error_mssg("Error\n", NULL, arr);
 			j++;
 		}
 		i++;

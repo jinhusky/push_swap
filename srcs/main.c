@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 08:19:58 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/24 13:38:26 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/24 13:57:06 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,6 @@ void	small_sort(t_stack *a, t_stack *b, int count)
 		sort_4_5(a, b, count);
 }
 
-void	free_memory(int *tokens, t_stack *a)
-{
-	t_node	*ptr;
-	t_node	*next;
-
-	ptr = a->head;
-	free(tokens);
-	tokens = NULL;
-	while (ptr)
-	{
-		next = ptr->next;
-		free(ptr);
-		ptr = next;
-	}
-}
-
 int	main(int argc, char *argv[])
 {
 	t_stack	stack_a;
@@ -96,10 +80,10 @@ int	main(int argc, char *argv[])
 	quick_sort(tokens, 0, num_count - 1);
 	ranking(tokens, &stack_a, num_count);
 	if (is_sorted(&stack_a))
-		exit(0);
+		ft_exit(&stack_a, tokens);
 	if (num_count <= 5)
 		small_sort(&stack_a, &stack_b, num_count);
 	else
 		radix_sort(&stack_a, &stack_b, num_count - 1);
-	free_memory(tokens, &stack_a);
+	ft_exit(&stack_a, tokens);
 }
