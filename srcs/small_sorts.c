@@ -6,7 +6,7 @@
 /*   By: kationg <kationg@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 01:42:10 by kationg           #+#    #+#             */
-/*   Updated: 2025/07/24 09:42:44 by kationg          ###   ########.fr       */
+/*   Updated: 2025/07/24 15:04:50 by kationg          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	sort_4_5(t_stack *a, t_stack *b, int count)
 	i = 0;
 	while (i < count - 3)
 	{
+		push(b, a);
 		ft_printf("pa\n");
 		i++;
 	}
